@@ -159,6 +159,26 @@
             100% { transform: scale(1); }
         }
 
+        .point-counter {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 95, 141, 0.95);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .point-counter.completed {
+            background: rgba(92, 184, 92, 0.95);
+        }
+
         /* Posiciones de los 9 puntos - Alejados de los bordes */
         .cal-point[data-pos="1"] { top: 15%; left: 12%; }
         .cal-point[data-pos="2"] { top: 15%; left: 50%; transform: translateX(-50%); }
@@ -442,8 +462,8 @@
             <ul>
                 <li><strong>Mantén tu cabeza quieta</strong> durante todo el proceso</li>
                 <li><strong>Mira fijamente</strong> cada punto rojo antes de hacer clic</li>
-                <li><strong>Haz clic</strong> en cada punto mientras lo miras</li>
-                <li>Completa <strong>los 9 puntos</strong> para mejor precisión</li>
+                <li><strong>Haz clic 3 veces</strong> en cada punto mientras lo miras</li>
+                <li>Completa <strong>los 9 puntos (27 clics en total)</strong> para mejor precisión</li>
             </ul>
             <button class="btn-start" onclick="startCalibration()">Comenzar Calibración</button>
             </div>
@@ -456,15 +476,42 @@
 
         <!-- Puntos de calibración -->
         <div class="calibration-points">
-            <div class="cal-point" data-pos="1" onclick="clickPoint(1)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="2" onclick="clickPoint(2)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="3" onclick="clickPoint(3)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="4" onclick="clickPoint(4)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="5" onclick="clickPoint(5)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="6" onclick="clickPoint(6)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="7" onclick="clickPoint(7)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="8" onclick="clickPoint(8)"><div class="point-circle"></div></div>
-            <div class="cal-point" data-pos="9" onclick="clickPoint(9)"><div class="point-circle"></div></div>
+            <div class="cal-point" data-pos="1" onclick="clickPoint(1)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-1">0/3</div>
+            </div>
+            <div class="cal-point" data-pos="2" onclick="clickPoint(2)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-2">0/3</div>
+            </div>
+            <div class="cal-point" data-pos="3" onclick="clickPoint(3)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-3">0/3</div>
+        </div>
+            <div class="cal-point" data-pos="4" onclick="clickPoint(4)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-4">0/3</div>
+                </div>
+            <div class="cal-point" data-pos="5" onclick="clickPoint(5)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-5">0/3</div>
+                </div>
+            <div class="cal-point" data-pos="6" onclick="clickPoint(6)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-6">0/3</div>
+                </div>
+            <div class="cal-point" data-pos="7" onclick="clickPoint(7)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-7">0/3</div>
+                </div>
+            <div class="cal-point" data-pos="8" onclick="clickPoint(8)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-8">0/3</div>
+                </div>
+            <div class="cal-point" data-pos="9" onclick="clickPoint(9)">
+                <div class="point-circle"></div>
+                <div class="point-counter" id="counter-9">0/3</div>
+                </div>
             </div>
 
         <!-- Barra de progreso -->
@@ -490,9 +537,16 @@
     <div id="gaze-cursor"></div>
 
     <script>
-        let clickedPoints = new Set();
+        let clickCounts = {};  // Objeto para guardar el conteo de clics por punto
         const totalPoints = 9;
+        const clicksPerPoint = 3;
+        const totalClicks = totalPoints * clicksPerPoint;
         let isReady = false;
+        
+        // Inicializar contadores en 0
+        for (let i = 1; i <= totalPoints; i++) {
+            clickCounts[i] = 0;
+        }
 
         // Inicializar WebGazer
         async function initWebGazer() {
@@ -550,26 +604,47 @@
         function clickPoint(num) {
             if (!isReady) return;
 
-            clickedPoints.add(num);
+            // Incrementar contador del punto
+            if (clickCounts[num] < clicksPerPoint) {
+                clickCounts[num]++;
+                
+                // Actualizar contador visual
+                const counter = document.getElementById(`counter-${num}`);
+                if (counter) {
+                    counter.textContent = `${clickCounts[num]}/3`;
+                    
+                    // Si se completó este punto, marcar como completado
+                    if (clickCounts[num] === clicksPerPoint) {
+                        counter.classList.add('completed');
+                        const point = document.querySelector(`.cal-point[data-pos="${num}"] .point-circle`);
+                        if (point) {
+                            point.classList.add('clicked');
+                        }
+                    }
+                }
+                
+                // Calcular puntos completados
+                let completedPoints = 0;
+                let totalClicksMade = 0;
+                for (let i = 1; i <= totalPoints; i++) {
+                    totalClicksMade += clickCounts[i];
+                    if (clickCounts[i] === clicksPerPoint) {
+                        completedPoints++;
+                    }
+                }
+                
+                // Actualizar barra de progreso
+                document.getElementById('progressCount').textContent = completedPoints;
+                document.getElementById('progressFill').style.width = (totalClicksMade / totalClicks * 100) + '%';
 
-            // Marcar visualmente
-            const point = document.querySelector(`.cal-point[data-pos="${num}"] .point-circle`);
-            if (point) {
-                point.classList.add('clicked');
-            }
-
-            // Actualizar progreso
-            const count = clickedPoints.size;
-            document.getElementById('progressCount').textContent = count;
-            document.getElementById('progressFill').style.width = (count / totalPoints * 100) + '%';
-
-            // Completar si llegamos a 9
-            if (count >= totalPoints) {
-                setTimeout(() => {
-                    document.getElementById('calibrationContainer').style.display = 'none';
-                    document.getElementById('completeScreen').classList.add('active');
-                    localStorage.setItem('webgazer_calibrated', 'true');
-                }, 500);
+                // Completar si todos los puntos tienen 3 clics
+                if (completedPoints === totalPoints) {
+                    setTimeout(() => {
+                        document.getElementById('calibrationContainer').style.display = 'none';
+                        document.getElementById('completeScreen').classList.add('active');
+                        localStorage.setItem('webgazer_calibrated', 'true');
+                    }, 500);
+                }
             }
         }
 
