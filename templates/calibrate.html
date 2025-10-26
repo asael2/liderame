@@ -29,7 +29,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
+            z-index: 50;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -82,6 +82,7 @@
             border: 4px solid rgba(255,255,255,0.1);
             background: #000;
             overflow: hidden;
+            z-index: 1;
         }
 
         #webcam-feed video,
@@ -108,7 +109,7 @@
             height: 60px;
             cursor: pointer;
             pointer-events: all;
-            z-index: 200;
+            z-index: 999;
         }
 
         .point-circle {
@@ -155,16 +156,16 @@
             100% { transform: scale(1); }
         }
 
-        /* Posiciones de los 9 puntos */
-        .cal-point[data-pos="1"] { top: 10%; left: 10%; }
-        .cal-point[data-pos="2"] { top: 10%; left: 50%; transform: translateX(-50%); }
-        .cal-point[data-pos="3"] { top: 10%; right: 10%; }
-        .cal-point[data-pos="4"] { top: 50%; left: 10%; transform: translateY(-50%); }
+        /* Posiciones de los 9 puntos - Alejados de los bordes */
+        .cal-point[data-pos="1"] { top: 15%; left: 12%; }
+        .cal-point[data-pos="2"] { top: 15%; left: 50%; transform: translateX(-50%); }
+        .cal-point[data-pos="3"] { top: 15%; right: 12%; }
+        .cal-point[data-pos="4"] { top: 50%; left: 12%; transform: translateY(-50%); }
         .cal-point[data-pos="5"] { top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .cal-point[data-pos="6"] { top: 50%; right: 10%; transform: translateY(-50%); }
-        .cal-point[data-pos="7"] { bottom: 10%; left: 10%; }
-        .cal-point[data-pos="8"] { bottom: 10%; left: 50%; transform: translateX(-50%); }
-        .cal-point[data-pos="9"] { bottom: 10%; right: 10%; }
+        .cal-point[data-pos="6"] { top: 50%; right: 12%; transform: translateY(-50%); }
+        .cal-point[data-pos="7"] { bottom: 15%; left: 12%; }
+        .cal-point[data-pos="8"] { bottom: 15%; left: 50%; transform: translateX(-50%); }
+        .cal-point[data-pos="9"] { bottom: 15%; right: 12%; }
 
         /* Barra de progreso */
         .progress-bar {
