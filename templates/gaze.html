@@ -158,19 +158,19 @@
         .pnl-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            max-width: 750px;
+            gap: 10px;
+            max-width: 100%;
             margin: 0 auto;
             position: relative;
         }
 
         .pnl-box {
-            padding: 22px 15px;
+            padding: 18px 12px;
             border-radius: 6px;
             text-align: center;
-            font-size: 0.88em;
+            font-size: 0.85em;
             font-weight: 500;
-            min-height: 95px;
+            min-height: 85px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -398,35 +398,37 @@
         <!-- Status Message -->
         <div id="statusMessage" class="status-message"></div>
 
-        <!-- Video Centrado -->
-        <div class="video-section">
-            <h2>Análisis en Tiempo Real</h2>
-            <div id="webcam-container">
-                <!-- WebGazer insertará el video aquí -->
-                <!-- Punto de mirada verde -->
-                <div class="gaze-dot" id="gazeDot"></div>
+        <!-- Layout de dos columnas -->
+        <div class="analysis-layout">
+            <!-- Columna Izquierda: Video -->
+            <div class="video-section">
+                <h2>Análisis en Tiempo Real</h2>
+                <div id="webcam-container">
+                    <!-- WebGazer insertará el video aquí -->
+                    <!-- Punto de mirada verde -->
+                    <div class="gaze-dot" id="gazeDot"></div>
+                </div>
+                <!-- Stats inline debajo del video -->
+                <div class="stats-inline">
+                    <div class="stat-item">
+                        <div class="stat-label">Estado Actual</div>
+                        <div class="stat-value" id="currentState" style="color: #5cb85c;">Inicializando...</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Dirección</div>
+                        <div class="stat-value" id="gazeDirection" style="color: #2c5f8d;">---</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Precisión</div>
+                        <div class="stat-value" id="accuracy" style="color: #2c5f8d;">Calibrando...</div>
+                    </div>
+                </div>
             </div>
-            <!-- Stats inline debajo del video -->
-            <div style="display: flex; gap: 30px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
-                <div style="text-align: center;">
-                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Estado Actual</div>
-                    <div id="currentState" style="color: #5cb85c; font-size: 1.4em; font-weight: 600;">Inicializando...</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Dirección</div>
-                    <div id="gazeDirection" style="color: #2c5f8d; font-size: 1.2em; font-weight: 600;">---</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Precisión</div>
-                    <div id="accuracy" style="color: #2c5f8d; font-size: 1.2em; font-weight: 600;">Calibrando...</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- PNL Pattern Grid -->
-        <div class="pnl-grid-container">
-            <h2>Mapa de Patrones Cognitivos (PNL)</h2>
-            <div class="pnl-grid" id="pnl-grid">
+            <!-- Columna Derecha: PNL Pattern Grid -->
+            <div class="pnl-grid-container">
+                <h2>Mapa de Patrones Cognitivos (PNL)</h2>
+                <div class="pnl-grid" id="pnl-grid">
                 <div class="pnl-box construc-visual" data-state="construc_visual">
                     <strong>⬉ Construcción Visual</strong>
                     <small>Inventar/Imaginar</small>
@@ -456,6 +458,7 @@
                     <strong>⬊ Sensaciones</strong>
                     <small>Emociones/Sentir</small>
                 </div>
+            </div>
             </div>
         </div>
 
