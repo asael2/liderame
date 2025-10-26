@@ -80,12 +80,16 @@
         }
 
         /* Video Section */
+        .videoArea{
+            position: relative;
+        }
         .video-section {
             background: white;
             border-radius: 8px;
             padding: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             border: 1px solid #e8e8e8;
+            position: relative;
         }
 
         .video-section h2 {
@@ -104,6 +108,8 @@
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             overflow: hidden;
             min-height: 480px;
+            max-width: 640px;
+            margin: auto;
         }
 
         #webgazerVideoFeed {
@@ -142,6 +148,10 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             border: 1px solid #e8e8e8;
             height: fit-content;
+            position: absolute;
+            width: 350px;
+            top: 0;
+            right: 0;
         }
 
         .stats-panel h2 {
@@ -397,7 +407,7 @@
         <div id="statusMessage" class="status-message"></div>
 
         <!-- Grid Layout: Video + Stats -->
-        <div class="grid-layout">
+        <div class="videoArea">
             <!-- Video Stream -->
             <div class="video-section">
                 <h2>Video en Vivo</h2>
@@ -408,26 +418,26 @@
 
             <!-- Statistics Panel -->
             <div class="stats-panel">
-                <h2>Estadísticas</h2>
-                <div class="stat-item">
-                    <div class="stat-label">Estado Actual</div>
-                    <div class="stat-value current-state" id="currentState">Inicializando...</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Dirección de Mirada</div>
-                    <div class="stat-value" id="gazeDirection">---</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Precisión</div>
-                    <div class="stat-value" id="accuracy">Calibrando...</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Coordenadas</div>
-                    <div class="stat-value" id="coordinates" style="font-size: 1em;">X: -, Y: -</div>
-                </div>
+                    <h2>Estadísticas</h2>
+                    <div class="stat-item">
+                        <div class="stat-label">Estado Actual</div>
+                        <div class="stat-value current-state" id="currentState">Inicializando...</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Dirección de Mirada</div>
+                        <div class="stat-value" id="gazeDirection">---</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Precisión</div>
+                        <div class="stat-value" id="accuracy">Calibrando...</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Coordenadas</div>
+                        <div class="stat-value" id="coordinates" style="font-size: 1em;">X: -, Y: -</div>
+                    </div>
             </div>
-        </div>
 
+        </div>
         <!-- PNL Pattern Grid -->
         <div class="pnl-grid-container">
             <h2>Mapa de Patrones Cognitivos (PNL)</h2>
