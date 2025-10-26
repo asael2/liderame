@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liderame - Sistema de Análisis de Patrones Oculares</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: #ffffff;
+            color: #333333;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #2c5f8d;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .logo span {
+            color: #5cb85c;
+        }
+
+        nav a {
+            margin-left: 35px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #2c5f8d;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2c5f8d 0%, #3a7ca5 100%);
+            color: white;
+            padding: 90px 30px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .hero .highlight {
+            color: #a8d5ba;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #5cb85c;
+            color: white;
+            box-shadow: 0 3px 10px rgba(92, 184, 92, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #4cae4c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(92, 184, 92, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2c5f8d;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Section */
+        .section {
+            padding: 70px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.3em;
+            color: #2c5f8d;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .section-title p {
+            font-size: 1.1em;
+            color: #777;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            padding: 35px 30px;
+            border-radius: 6px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #d0d0d0;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            color: #2c5f8d;
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* About Section */
+        .about {
+            background: #f5f7fa;
+            padding: 70px 30px;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 45px;
+            border-radius: 6px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .about-content h2 {
+            color: #2c5f8d;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .about-content p {
+            color: #666;
+            font-size: 1.05em;
+            margin-bottom: 18px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .about-content strong {
+            color: #2c5f8d;
+            font-weight: 600;
+        }
+
+        /* PNL Section */
+        .pnl-section {
+            padding: 70px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pnl-grid {
+            background: #f9f9f9;
+            padding: 45px;
+            border-radius: 6px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .pnl-pattern {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 650px;
+            margin: 35px auto;
+        }
+
+        .pnl-box {
+            padding: 22px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.88em;
+            font-weight: 500;
+            min-height: 95px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .pnl-box:hover {
+            transform: scale(1.03);
+        }
+
+        .pnl-box.construc-visual { background: #e8f4f8; color: #2c5f8d; }
+        .pnl-box.memoria-visual { background: #fff9e6; color: #d9821b; }
+        .pnl-box.construc-audio { background: #f3e8f5; color: #7b4397; }
+        .pnl-box.memoria-audio { background: #e8f5e9; color: #4caf50; }
+        .pnl-box.dialogo-interno { background: #fce8f3; color: #c2185b; }
+        .pnl-box.sensaciones { background: #fff8e1; color: #f57c00; }
+        .pnl-box.center { background: #ffffff; color: #999; font-size: 1.8em; border: 2px solid #e0e0e0; }
+
+        .pnl-box small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.85em;
+            opacity: 0.85;
+        }
+
+        .pnl-note {
+            text-align: center;
+            color: #777;
+            margin-top: 28px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c5f8d;
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2em; }
+            .hero p { font-size: 1.05em; }
+            .pnl-pattern { grid-template-columns: 1fr; max-width: 350px; }
+            .features-grid { grid-template-columns: 1fr; }
+            nav { display: none; }
+            .header-content { padding: 0 20px; }
+            .section { padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Lidera<span>.me</span></div>
+            <nav>
+                <a href="#features">Características</a>
+                <a href="#about">Acerca de</a>
+                <a href="#pnl">Patrones PNL</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Análisis de <span class="highlight">Patrones Oculares</span><br>para Entrevistas Psicológicas</h1>
+            <p>Detecta estados cognitivos y emocionales en tiempo real mediante el seguimiento avanzado de la mirada</p>
+            <div class="cta-buttons">
+                <a href="/calibrate" class="btn btn-primary">Calibrar Sistema</a>
+                <a href="/gaze" class="btn btn-secondary">Iniciar Análisis</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-title">
+            <h2>¿Qué hace Liderame?</h2>
+            <p>Tecnología avanzada al servicio de la psicología profesional</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3>Seguimiento Preciso</h3>
+                <p>Detección de mirada en 9 direcciones usando MediaPipe de Google. Precisión de nivel profesional para análisis confiable.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Patrones Cognitivos</h3>
+                <p>Identifica procesos mentales como recordar, construir, diálogo interno y estados emocionales basado en PNL.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Análisis en Tiempo Real</h3>
+                <p>Procesamiento instantáneo de movimientos oculares con feedback visual para el profesional.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Calibración Personalizada</h3>
+                <p>Sistema adaptativo que se ajusta a cada persona para máxima precisión en las mediciones.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Dashboard Profesional</h3>
+                <p>Interfaz intuitiva diseñada para psicólogos con visualización clara de datos y métricas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacidad Garantizada</h3>
+                <p>Todos los datos se procesan localmente. Sin envío a servidores externos ni almacenamiento en la nube.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>Sobre Liderame</h2>
+            <p>
+                <strong>Liderame</strong> es una herramienta profesional de análisis ocular diseñada específicamente 
+                para psicólogos, coaches y profesionales de la salud mental.
+            </p>
+            <p>
+                Basado en principios de <strong>PNL (Programación Neurolingüística)</strong> y psicología cognitiva, 
+                nuestro sistema identifica patrones de movimiento ocular que revelan procesos mentales internos.
+            </p>
+            <p>
+                Durante una entrevista, los movimientos oculares no son aleatorios. Cada dirección de la mirada 
+                se correlaciona con diferentes tipos de procesamiento cognitivo. Liderame captura estos movimientos 
+                y los traduce en información valiosa para el profesional.
+            </p>
+            <p>
+                <strong>¿Para qué sirve?</strong> Detectar inconsistencias en relatos, identificar estados emocionales, 
+                comprender procesos de pensamiento y obtener insights que la observación humana podría pasar por alto 
+                en el calor de la entrevista.
+            </p>
+        </div>
+    </section>
+
+    <!-- PNL Patterns Section -->
+    <section class="pnl-section" id="pnl">
+        <div class="section-title">
+            <h2>Patrones de Acceso Ocular (PNL)</h2>
+            <p>Cada dirección de la mirada revela un proceso cognitivo diferente</p>
+        </div>
+        <div class="pnl-grid">
+            <div class="pnl-pattern">
+                <div class="pnl-box construc-visual">
+                    <strong>⬉ Construcción Visual</strong>
+                    <small>Inventar/Imaginar</small>
+                </div>
+                <div class="pnl-box" style="background: transparent; border: none;"></div>
+                <div class="pnl-box memoria-visual">
+                    <strong>⬈ Memoria Visual</strong>
+                    <small>Recordar imágenes</small>
+                </div>
+                
+                <div class="pnl-box construc-audio">
+                    <strong>⬅ Construcción Auditiva</strong>
+                    <small>Crear sonidos</small>
+                </div>
+                <div class="pnl-box center">●</div>
+                <div class="pnl-box memoria-audio">
+                    <strong>➡ Memoria Auditiva</strong>
+                    <small>Recordar sonidos</small>
+                </div>
+                
+                <div class="pnl-box dialogo-interno">
+                    <strong>⬋ Diálogo Interno</strong>
+                    <small>Auto-conversación</small>
+                </div>
+                <div class="pnl-box" style="background: transparent; border: none;"></div>
+                <div class="pnl-box sensaciones">
+                    <strong>⬊ Sensaciones</strong>
+                    <small>Emociones/Sentir</small>
+                </div>
+            </div>
+            <p class="pnl-note">
+                <strong>Nota:</strong> Estos patrones son una guía general. La interpretación debe realizarse 
+                en contexto y por profesionales capacitados.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Liderame - Sistema de Análisis de Patrones Oculares</p>
+            <p style="margin-top: 8px; font-size: 0.9em;">Tecnología al servicio de la psicología profesional</p>
+        </div>
+    </footer>
+</body>
+</html>
