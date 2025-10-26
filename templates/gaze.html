@@ -66,21 +66,27 @@
 
         /* Main Container */
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 30px auto;
             padding: 0 30px;
         }
 
-        /* Video Section Centrado */
+        /* Layout de dos columnas en pantallas anchas */
+        .analysis-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Video Section */
         .video-section {
-            max-width: 900px;
-            margin: 0 auto 30px;
             text-align: center;
         }
 
         .video-section h2 {
             color: #2c5f8d;
-            font-size: 1.8em;
+            font-size: 1.6em;
             margin-bottom: 20px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
@@ -88,10 +94,9 @@
 
         #webcam-container {
             position: relative;
-            width: 800px;
-            max-width: 90vw;
-            height: 600px;
-            max-height: 70vh;
+            width: 100%;
+            max-width: 700px;
+            height: 525px;
             margin: 0 auto;
             border-radius: 12px;
             background: #000;
