@@ -71,119 +71,63 @@
             padding: 0 30px;
         }
 
-        /* Grid Layout */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        /* Video Section */
+        /* Video Section Centrado */
         .video-section {
-            background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8e8e8;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            text-align: center;
         }
 
         .video-section h2 {
             color: #2c5f8d;
-            font-size: 1.5em;
-            margin-bottom: 18px;
+            font-size: 1.8em;
+            margin-bottom: 20px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif;
         }
 
         #webcam-container {
             position: relative;
-            width: 100%;
-            border-radius: 6px;
+            width: 800px;
+            max-width: 90vw;
+            height: 600px;
+            max-height: 70vh;
+            margin: 0 auto;
+            border-radius: 12px;
             background: #000;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.2);
             overflow: hidden;
-            min-height: 480px;
-        }
-
-        #webgazerVideoFeed {
-            width: 100% !important;
-            height: auto !important;
-            border-radius: 6px;
-        }
-
-        #webgazerFaceFeedbackBox {
-            display: block !important;
-        }
-
-        #webgazerFaceOverlay {
-            display: block !important;
+            border: 4px solid rgba(44, 95, 141, 0.2);
         }
 
         .gaze-dot {
-            position: fixed;
-            width: 20px;
-            height: 20px;
+            position: absolute;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: rgba(255, 60, 60, 0.7);
-            border: 3px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 15px rgba(255, 60, 60, 0.8);
+            background: radial-gradient(circle, rgba(92, 184, 92, 0.9) 0%, rgba(92, 184, 92, 0.4) 70%);
+            border: 3px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 20px rgba(92, 184, 92, 0.9), 0 0 40px rgba(92, 184, 92, 0.5);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: all 0.1s ease;
+            transition: all 0.08s ease-out;
+            display: none;
         }
 
-        /* Stats Panel */
-        .stats-panel {
+        .gaze-dot:after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
             background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8e8e8;
-            height: fit-content;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 5px rgba(255,255,255,0.8);
         }
 
-        .stats-panel h2 {
-            color: #2c5f8d;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-weight: 600;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .stat-item {
-            margin-bottom: 18px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .stat-label {
-            color: #777;
-            font-size: 0.88em;
-            font-weight: 500;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-value {
-            color: #333;
-            font-size: 1.4em;
-            font-weight: 600;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .current-state {
-            font-size: 1.6em !important;
-            color: #5cb85c;
-        }
 
         /* PNL Grid */
         .pnl-grid-container {
@@ -336,26 +280,35 @@
             font-size: 0.95em;
         }
 
-        /* Ocultar elementos de WebGazer que no necesitamos en la vista principal */
+        /* Ocultar elementos de WebGazer que no necesitamos */
         #webgazerGazeDot {
+            display: none !important;
+        }
+        
+        #webgazerVideoFeed {
+            width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            border-radius: 12px !important;
+        }
+        
+        #webgazerFaceOverlay {
+            display: block !important;
+            width: 100% !important;
+            height: auto !important;
+        }
+        
+        #webgazerFaceFeedbackBox {
+            display: none !important;
+        }
+        
+        /* Ocultar contenedor de WebGazer por defecto (se mueve al contenedor) */
+        body > video,
+        body > canvas {
             display: none !important;
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .grid-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-panel {
-                margin-top: 20px;
-            }
-
-            .pnl-grid {
-                max-width: 100%;
-            }
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 0 20px;
@@ -396,34 +349,27 @@
         <!-- Status Message -->
         <div id="statusMessage" class="status-message"></div>
 
-        <!-- Grid Layout: Video + Stats -->
-        <div class="grid-layout">
-            <!-- Video Stream -->
-            <div class="video-section">
-                <h2>Video en Vivo</h2>
-                <div id="webcam-container">
-                    <!-- WebGazer insertará el video aquí -->
-                </div>
+        <!-- Video Centrado -->
+        <div class="video-section">
+            <h2>Análisis en Tiempo Real</h2>
+            <div id="webcam-container">
+                <!-- WebGazer insertará el video aquí -->
+                <!-- Punto de mirada verde -->
+                <div class="gaze-dot" id="gazeDot"></div>
             </div>
-
-            <!-- Statistics Panel -->
-            <div class="stats-panel">
-                <h2>Estadísticas</h2>
-                <div class="stat-item">
-                    <div class="stat-label">Estado Actual</div>
-                    <div class="stat-value current-state" id="currentState">Inicializando...</div>
+            <!-- Stats inline debajo del video -->
+            <div style="display: flex; gap: 30px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Estado Actual</div>
+                    <div id="currentState" style="color: #5cb85c; font-size: 1.4em; font-weight: 600;">Inicializando...</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-label">Dirección de Mirada</div>
-                    <div class="stat-value" id="gazeDirection">---</div>
+                <div style="text-align: center;">
+                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Dirección</div>
+                    <div id="gazeDirection" style="color: #2c5f8d; font-size: 1.2em; font-weight: 600;">---</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-label">Precisión</div>
-                    <div class="stat-value" id="accuracy">Calibrando...</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Coordenadas</div>
-                    <div class="stat-value" id="coordinates" style="font-size: 1em;">X: -, Y: -</div>
+                <div style="text-align: center;">
+                    <div style="color: #777; font-size: 0.85em; margin-bottom: 5px;">Precisión</div>
+                    <div id="accuracy" style="color: #2c5f8d; font-size: 1.2em; font-weight: 600;">Calibrando...</div>
                 </div>
             </div>
         </div>
@@ -479,9 +425,6 @@
         </div>
     </footer>
 
-    <!-- Gaze Dot -->
-    <div class="gaze-dot" id="gazeDot" style="display: none;"></div>
-
     <script>
         let isWebGazerReady = false;
         let currentState = 'centro';
@@ -530,28 +473,51 @@
                         updatePNLState(zone);
                     }
                     
-                    // Actualizar coordenadas
-                    document.getElementById('coordinates').textContent = 
-                        `X: ${Math.round(x)}, Y: ${Math.round(y)}`;
-                    
                 }).begin();
                 
                 webgazer.showVideoPreview(true)
-                    .showPredictionPoints(true)
+                    .showPredictionPoints(false)
+                    .showFaceOverlay(true)
+                    .showFaceFeedbackBox(false)
                     .applyKalmanFilter(true);
                 
-                // Mover el video al contenedor
+                // Mover el video y overlay al contenedor
                 setTimeout(() => {
                     const video = document.getElementById('webgazerVideoFeed');
+                    const overlay = document.getElementById('webgazerFaceOverlay');
                     const container = document.getElementById('webcam-container');
+                    
+                    // Limpiar contenedor primero
+                    if (container) {
+                        container.innerHTML = '<div class="gaze-dot" id="gazeDot"></div>';
+                    }
+                    
                     if (video && container) {
                         container.appendChild(video);
+                        video.style.cssText = 'width: 100% !important; height: auto !important; display: block !important; border-radius: 12px;';
                     }
+                    if (overlay && container) {
+                        container.appendChild(overlay);
+                        overlay.style.cssText = 'display: block !important; width: 100% !important; height: auto !important; position: absolute !important; top: 0 !important; left: 0 !important;';
+                    }
+                    
+                    // Ocultar cualquier otro video o canvas fuera del contenedor
+                    document.querySelectorAll('video').forEach(v => {
+                        if (v.id !== 'webgazerVideoFeed') {
+                            v.style.display = 'none !important';
+                        }
+                    });
+                    document.querySelectorAll('canvas').forEach(c => {
+                        if (c.id !== 'webgazerFaceOverlay') {
+                            c.style.display = 'none !important';
+                        }
+                    });
+                    
                     isWebGazerReady = true;
-                    showMessage('Sistema listo. Calibra haciendo clic en diferentes puntos de la pantalla.', 'success');
+                    showMessage('Sistema listo para análisis en tiempo real.', 'success');
                     document.getElementById('currentState').textContent = 'Centro';
-                    document.getElementById('accuracy').textContent = 'Calibrando...';
-                }, 1000);
+                    document.getElementById('accuracy').textContent = 'Mejorando...';
+                }, 1500);
                 
             } catch (error) {
                 console.error('Error al inicializar WebGazer:', error);
@@ -642,14 +608,28 @@
             document.getElementById('gazeDirection').textContent = stateDirections[newState] || 'Centro';
         }
 
-        // Actualizar punto de mirada
+        // Actualizar punto de mirada (restringido al contenedor del video)
         function updateGazeDot(x, y) {
             const dot = document.getElementById('gazeDot');
-            if (showGazeDot) {
-                dot.style.display = 'block';
-                dot.style.left = x + 'px';
-                dot.style.top = y + 'px';
-            }
+            const container = document.getElementById('webcam-container');
+            
+            if (!showGazeDot || !container) return;
+            
+            // Obtener posición y dimensiones del contenedor
+            const rect = container.getBoundingClientRect();
+            
+            // Convertir coordenadas globales a relativas del contenedor
+            let relX = x - rect.left;
+            let relY = y - rect.top;
+            
+            // Restringir coordenadas dentro del contenedor
+            relX = Math.max(0, Math.min(relX, rect.width));
+            relY = Math.max(0, Math.min(relY, rect.height));
+            
+            // Actualizar posición del punto
+            dot.style.display = 'block';
+            dot.style.left = relX + 'px';
+            dot.style.top = relY + 'px';
         }
 
         // Toggle punto de mirada
@@ -704,6 +684,20 @@
 
         // Guardar datos cada 5 segundos
         setInterval(saveAnalysisData, 5000);
+
+        // Verificar y ocultar elementos duplicados de WebGazer cada segundo
+        setInterval(() => {
+            document.querySelectorAll('video').forEach(v => {
+                if (v.id !== 'webgazerVideoFeed') {
+                    v.style.display = 'none !important';
+                }
+            });
+            document.querySelectorAll('canvas').forEach(c => {
+                if (c.id !== 'webgazerFaceOverlay') {
+                    c.style.display = 'none !important';
+                }
+            });
+        }, 1000);
 
         // Mejorar precisión con clics del usuario
         document.addEventListener('click', function(event) {
